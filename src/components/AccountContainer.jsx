@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import Styled from 'styled-components'
-import { StaticQuery, graphql } from 'gatsby'
 import { AccountTabList, AccountContent } from './molecules'
-import {} from './atoms'
 import { UserContext } from '../containers/UserContext'
 
 const Container = Styled.div`
