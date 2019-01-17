@@ -18,7 +18,6 @@ exports[`Footer renders correctly 1`] = `
           }
         }
       >
-        Enter Footer text here, boiiiiii
       </p>
       <form>
         <label
