@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import Styled from 'styled-components'
 import slugify from 'slugify'
-import { Link } from 'gatsby'
 
 const Container = Styled.div`
 li{

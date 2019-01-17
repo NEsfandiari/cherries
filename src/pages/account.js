@@ -2,8 +2,6 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 
 import { SideNav, AccountContainer } from '../components'
-import {} from '../components/molecules'
-import { NavLink } from '../components/atoms'
 import { MainLayout } from '../components/layouts'
 
 const Container = styled.div`

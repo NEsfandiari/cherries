@@ -10,9 +10,6 @@ import {
 import { NavLink } from '../components/atoms'
 import { MainLayout } from '../components/layouts'
 
-// import postLambda from '../../utilities/postLambda'
-import { UserContext, UserProvider } from '../containers/UserContext'
-
 const Container = styled.div`
   display: flex;
   flex-direction: column;
