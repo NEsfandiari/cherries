@@ -83,8 +83,7 @@ export const PureSideNav = ({ data }) => (
   <SideNav links={data.contentfulHomePage.sideNavBar.data} />
 )
 
-
-export default () => (
+export default props => (
   <UserContext.Consumer>
     {userContext => (
       <StaticQuery
