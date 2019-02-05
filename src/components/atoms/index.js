@@ -1,7 +1,6 @@
 export { default as DropdownMenu } from './DropdownMenu'
 export { default as GoogleIcon } from './GoogleIcon'
 export { default as HomePageButton } from './HomePageButton'
-export { default as Image } from './Image'
 export { default as Loading } from './Loading'
 export { default as NavLink } from './NavLink'
 export { default as ProductCard } from './ProductCard'

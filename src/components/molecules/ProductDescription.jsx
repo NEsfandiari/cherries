@@ -6,13 +6,37 @@ import {
   QuantityAdjustButton,
   ProductDetail,
 } from '../atoms'
-import { ProductOrder } from '../molecules'
 
-const Layout = styled.div`
+const Container = styled.div`
   flex-basis: 45%;
   display: flex;
   flex-direction: column;
   padding: 1rem;
+
+  .order-type {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 6rem;
+    input {
+      appearance: none;
+      cursor: pointer;
+      width: 26px;
+      height: 26px;
+      border: 1px solid #e20031;
+      border-radius: 100%;
+      background: #fff;
+      :checked {
+        background: #e20031;
+      }
+    }
+    label {
+      margin: 1rem;
+      b {
+        margin-left: 1rem;
+      }
+    }
+  }
 
   .purchase {
     display: flex;
@@ -52,15 +76,13 @@ class ProductDescription extends Component {
     quantity: 1,
     price: this.props.price,
     status: 'ADD TO BAG',
-    // Default selection to one-time purchase
-    purchaseType: 'oneTimePurchase',
   }
   handleChange = e => {
     e.preventDefault()
     this.setState({ [e.target.name]: e.target.value })
   }
   handleClick = e => {
-    this.setState({ purchaseType: e.target.id })
+    this.setState({ status: e.target.name })
   }
   handleAdjust = e => {
     let newQuantity
@@ -111,18 +133,37 @@ class ProductDescription extends Component {
         return <p key={i}>{fullClause}</p>
       }
     })
-    const opacity = this.state.purchaseType !== 'oneTimePurchase' ? 0.3 : 1
+
     return (
-      <Layout>
+      <Container>
         <h1>{this.props.title}</h1>
         {productCopy}
         <StyledHr width={'100%'} margin={'.8rem'} />
-        <div>
-          <ProductOrder
-            price={this.state.price}
-            handleAdjust={this.handleAdjust}
-            handleClick={this.handleClick}
-          />
+        <div className="order-type">
+          <div>
+            <input
+              type="radio"
+              name="ADD TO BAG"
+              onClick={this.handleClick}
+              checked={this.state.status == 'ADD TO BAG' ? true : false}
+            />
+            <label for="ADD TO BAG">
+              One-Time Purchase:
+              <b>${this.state.price}</b>
+            </label>
+          </div>
+          <div>
+            <input
+              type="radio"
+              name="SUBSCRIBE"
+              onClick={this.handleClick}
+              checked={this.state.status == 'SUBSCRIBE' ? true : false}
+            />
+            <label for="SUBSCRIBE">
+              Subscribe and Save:
+              <b>$10/mo</b>
+            </label>
+          </div>
         </div>
         <form className="purchase" onSubmit={this.handleSubmit}>
           <QuantityAdjustButton
@@ -137,14 +178,13 @@ class ProductDescription extends Component {
             height={'2.5rem'}
             width={'18rem'}
             fontSize={'.65rem'}
-            style={{ opacity: opacity }}
             disabled={this.state.oneTimePurchase === 'oneTimePurchase' && false}
           >
             <b>{this.state.status}</b>
           </StyledButton>
         </form>
         <ProductDetail details={this.props.details} />
-      </Layout>
+      </Container>
     )
   }
 }
