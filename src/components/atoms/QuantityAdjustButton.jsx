@@ -13,7 +13,7 @@ const Container = styled.div`
   border: 2px solid;
   background-color: white;
   height: ${({ height }) => height || '1.7rem'};
-  opacity: ${({ opacity }) => opacity};
+  opacity: ${props => props.opacity};
   transition: 0.3s;
   width: 5rem;
   p {

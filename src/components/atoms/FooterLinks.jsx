@@ -25,6 +25,7 @@ li {
   flex-wrap: wrap;
   display: flex;
   flex-basis: 50%;
+  margin: 0;
 }
 @media (max-width: 420px) {
   flex-direction: column;

@@ -4,18 +4,20 @@ import { FooterSubscription, FooterLinks } from './atoms'
 import { StaticQuery, graphql } from 'gatsby'
 
 const Container = Styled.div`
+  z-index: 0;
   position: relative;
-  background-color: #E20031;
-  font-family: Montserrat;
-  font-size: .8rem;
-  font-weight: 700;
-  color: white;
-  width: 100vw;
   display: inline-flex;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  z-index: 1;
+  
+  padding: 3rem;
+  width: 100vw;
+  background-color: #E20031;
+  color: white;
+  font-family: Montserrat;
+  font-size: .8rem;
+  font-weight: 700;
   @media (max-width: 420px) {
     height: auto;
     flex-direction: column;
