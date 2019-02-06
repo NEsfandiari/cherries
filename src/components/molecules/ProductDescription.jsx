@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { navigate } from 'gatsby'
 import styled from 'styled-components'
 import {
   StyledHr,
@@ -18,6 +19,11 @@ const Container = styled.div`
     flex-direction: column;
     justify-content: space-evenly;
     height: 6rem;
+    div {
+      padding: 1rem;
+      display: flex;
+      align-items: center;
+    }
     input {
       appearance: none;
       cursor: pointer;
@@ -28,6 +34,9 @@ const Container = styled.div`
       background: #fff;
       :checked {
         background: #e20031;
+      }
+      :focus {
+        outline: none;
       }
     }
     label {
@@ -77,11 +86,8 @@ class ProductDescription extends Component {
     price: this.props.price,
     status: 'ADD TO BAG',
   }
-  handleChange = e => {
-    e.preventDefault()
-    this.setState({ [e.target.name]: e.target.value })
-  }
-  handleClick = e => {
+
+  handleStatus = e => {
     this.setState({ status: e.target.name })
   }
   handleAdjust = e => {
@@ -106,16 +112,20 @@ class ProductDescription extends Component {
   }
   handleSubmit = e => {
     e.preventDefault()
-    this.props.handleCart(
-      'add',
-      this.props.title,
-      this.props.price,
-      parseInt(this.state.quantity),
-      this.props.images[0],
-      this.props.sku
-    )
-    console.log('item added')
-    this.setState({ status: 'ADDED!' })
+    if (this.state.status === 'ADD TO BAG') {
+      this.props.handleCart(
+        'add',
+        this.props.title,
+        this.props.price,
+        parseInt(this.state.quantity),
+        this.props.images[0],
+        this.props.sku
+      )
+      console.log('item added')
+      this.setState({ status: 'ADDED!' })
+    } else {
+      navigate('/subscribe')
+    }
   }
   render() {
     const productCopy = this.props.productCopy.map((statement, i) => {
@@ -133,7 +143,7 @@ class ProductDescription extends Component {
         return <p key={i}>{fullClause}</p>
       }
     })
-
+    const opacity = this.state.status === 'SUBSCRIBE' ? 0.3 : 1
     return (
       <Container>
         <h1>{this.props.title}</h1>
@@ -144,7 +154,7 @@ class ProductDescription extends Component {
             <input
               type="radio"
               name="ADD TO BAG"
-              onClick={this.handleClick}
+              onClick={this.handleStatus}
               checked={this.state.status == 'ADD TO BAG' ? true : false}
             />
             <label for="ADD TO BAG">
@@ -156,7 +166,7 @@ class ProductDescription extends Component {
             <input
               type="radio"
               name="SUBSCRIBE"
-              onClick={this.handleClick}
+              onClick={this.handleStatus}
               checked={this.state.status == 'SUBSCRIBE' ? true : false}
             />
             <label for="SUBSCRIBE">
@@ -173,6 +183,7 @@ class ProductDescription extends Component {
             color={'#E20031'}
             height={'2.5rem'}
             width={'3rem'}
+            opacity={opacity}
           />
           <StyledButton
             height={'2.5rem'}

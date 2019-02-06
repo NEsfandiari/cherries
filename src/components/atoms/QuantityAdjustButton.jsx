@@ -13,6 +13,8 @@ const Container = styled.div`
   border: 2px solid;
   background-color: white;
   height: ${({ height }) => height || '1.7rem'};
+  opacity: ${({ opacity }) => opacity};
+  transition: 0.3s;
   width: 5rem;
   p {
     margin: 0;
@@ -22,9 +24,9 @@ const Container = styled.div`
 class QuantityAdjustButton extends Component {
   state = {}
   render() {
-    const { handleAdjust, id, quantity, height, color } = this.props
+    const { handleAdjust, id, quantity, height, color, opacity } = this.props
     return (
-      <Container height={height} color={color}>
+      <Container height={height} color={color} opacity={opacity}>
         <div className="sub" onClick={handleAdjust} data-id={id}>
           -
         </div>
