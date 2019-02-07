@@ -6,7 +6,7 @@ import { UserContext } from '../containers/UserContext'
 
 const Container = styled.div`
   position: fixed;
-  margin-top: 3rem;
+  margin-top: 2rem;
   z-index: 1;
   overflow: auto;
   height: 70vh;

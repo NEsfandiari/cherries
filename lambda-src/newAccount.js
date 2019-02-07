@@ -2,22 +2,12 @@ require('dotenv').config({ path: '.env.development' })
 const postLambda = require('../src/utilities/postLambda')
 const axios = require('axios')
 const getAccount = require('../lambda-src/getAccount')
-
-// const aws = require('aws-sdk')
-// const lambda = new aws.Lambda()
-//   {
-//   region: 'us-west-2' //change to your region
-// }
-
-const statusCode = 200
 const headers = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'Content-Type',
 }
-//although api said to use application/graphql we had to use application/json because we are using variables passed in as an object
 const shopifyConfig = {
   'Content-Type': 'application/json',
-  Accept: 'application/json',
   'X-Shopify-Storefront-Access-Token': process.env.SHOPIFY_STOREFRONT_KEY,
 }
 
@@ -26,7 +16,7 @@ exports.handler = async function(event, context, callback) {
   //sends an option method request
   if (event.httpMethod !== 'POST' || !event.body) {
     return callback(null, {
-      statusCode,
+      statusCode: 200,
       headers,
       body: '',
     })
@@ -35,60 +25,50 @@ exports.handler = async function(event, context, callback) {
     let data = JSON.parse(event.body)
     let body = JSON.parse(data.body)
 
-    const query = `mutation customerCreate($input: CustomerCreateInput!) {
-      customerCreate(input: $input) {
-        userErrors {
-          field
-          message
-        }
-        customer {
-          id
-        }
-        customerUserErrors {
-          field
-          message
+    const payload = {
+      query : `
+        mutation customerCreate($input: CustomerCreateInput!) {
+          customerCreate(input: $input) {
+            userErrors {
+              field
+              message
+            }
+            customer {
+              id
+            }
+            customerUserErrors {
+              field
+              message
+            }
+          }
+        }`,
+      variables : {
+          input: {
+            email: body.email,
+            password: body.password,
+            acceptsMarketing: body.newsletter,
+            firstName: body.firstName,
+            lastName: body.lastName,
+          },
         }
       }
-    }`
 
-    //shopify-admin api doesn't accept password as a field
-    const variables = {
-      input: {
-        email: body.email,
-        password: body.password,
-        acceptsMarketing: body.newsletter,
-        firstName: body.firstName,
-        lastName: body.lastName,
-      },
-    }
-
-    axios
-      .post(
-        'https://cherries2018.myshopify.com/api/graphql',
-        {
-          variables,
-          query,
-        },
-        { headers: shopifyConfig }
-      )
+  
+    axios({
+          url: 'https://cherries2018.myshopify.com/api/graphql',
+          method: 'POST',
+          headers: shopifyConfig,
+          data: JSON.stringify(payload),
+        })
       .then(async function(response) {
         let customer
         if (response.data.errors) {
-          // return response.data.errors
           return callback(response.data.errors)
         } else {
           customer = response.data.data.customerCreate
         }
-        // let responseObj = {
-        //   statusCode: 200,
-        //   headers,
-        //   body: JSON.stringify({
-        //     customer,
-        //   }),
-        // }
-
+       
         // After signing user up, immediately log then im using getAccount lambda function
-        // Instead of using lambda function, just import the getAccount function definition and call directly
         let loginInfo = {
           email: body.email,
           password: body.password,
@@ -107,6 +87,7 @@ exports.handler = async function(event, context, callback) {
         return callback(null, loggedInUser)
       })
       .catch(err => {
+        console.log('error, error')
         return callback(err)
       })
   }
