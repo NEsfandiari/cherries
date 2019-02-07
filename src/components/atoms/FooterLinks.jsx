@@ -35,8 +35,8 @@ class FooterLinks extends Component {
   render() {
     const links = this.props.linkData.map((d, index) => (
       <li key={index}>
-        <Link className="list-items" to={d.content[1].data.uri}>
-          {d.content[1].content[0].value}
+        <Link className="list-items" to={d.link}>
+          {d.title}
         </Link>
       </li>
     ))

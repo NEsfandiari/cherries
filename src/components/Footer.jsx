@@ -11,7 +11,7 @@ const Container = Styled.div`
   align-items: center;
   justify-content: center;
   
-  padding: 3rem;
+  padding: 2.5rem;
   width: 100vw;
   background-color: #E20031;
   color: white;
@@ -36,48 +36,45 @@ export const PureFooter = ({ data }) => (
   </Container>
 )
 
-export default () => (
-  <StaticQuery
-    query={graphql`
-      {
-        allContentfulFooter {
-          edges {
-            node {
-              footerSubscriptionTitle
-              footerSubscriptionText
-              footerLinks {
-                content {
-                  content {
-                    data {
-                      uri
-                    }
-                    content {
-                      value
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    `}
-    render={data => {
-      return (
-        <Container>
-          <FooterSubscription
-            title={
-              data.allContentfulFooter.edges[0].node.footerSubscriptionTitle
-            }
-            text={data.allContentfulFooter.edges[0].node.footerSubscriptionText}
-          />
-          <FooterLinks
-            linkData={
-              data.allContentfulFooter.edges[0].node.footerLinks.content
-            }
-          />
-        </Container>
-      )
-    }}
-  />
-)
+export default () => {
+  return (
+    <Container>
+      <FooterSubscription
+        title={'Newsletter'}
+        text={'Keep up to date with every new release!'}
+      />
+      <FooterLinks
+        linkData={[
+          {
+            title: 'Refer A Friend',
+            link: '/',
+          },
+          {
+            title: 'Careers',
+            link: '/',
+          },
+          {
+            title: 'Help',
+            link: '/',
+          },
+          {
+            title: 'Our Story',
+            link: '/',
+          },
+          {
+            title: 'Instagram',
+            link: '/',
+          },
+          {
+            title: 'Terms',
+            link: '/terms-conditions',
+          },
+          {
+            title: 'Privacy Policy',
+            link: '/privacy-policy',
+          },
+        ]}
+      />
+    </Container>
+  )
+}
