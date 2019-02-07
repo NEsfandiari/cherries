@@ -8,7 +8,7 @@ flex-basis: 50%;
 align-items: center;
 justify-content: center;
 width: 100%;
-.list-items {
+.list-items, a {
   text-decoration: none;
   color: white;
 }
@@ -17,7 +17,7 @@ li {
 }
 .list {
   width: 90%;
-  height: 10rem;
+  height: 8rem;
   list-style-type: none;
   padding-top: 1rem;
   padding-right: 1rem;
@@ -35,9 +35,15 @@ class FooterLinks extends Component {
   render() {
     const links = this.props.linkData.map((d, index) => (
       <li key={index}>
-        <Link className="list-items" to={d.link}>
-          {d.title}
-        </Link>
+        {d.title == 'Instagram' ? (
+          <a href={d.link} rel="noopener" target="_blank">
+            {d.title}
+          </a>
+        ) : (
+          <Link className="list-items" to={d.link}>
+            {d.title}
+          </Link>
+        )}
       </li>
     ))
     return (

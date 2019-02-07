@@ -50,10 +50,6 @@ export default () => {
             link: '/',
           },
           {
-            title: 'Careers',
-            link: '/',
-          },
-          {
             title: 'Help',
             link: '/',
           },
@@ -63,7 +59,7 @@ export default () => {
           },
           {
             title: 'Instagram',
-            link: '/',
+            link: 'https://www.instagram.com/explore/tags/jewelry/?hl=en',
           },
           {
             title: 'Terms',

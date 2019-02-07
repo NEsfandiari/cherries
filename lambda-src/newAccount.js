@@ -26,7 +26,7 @@ exports.handler = async function(event, context, callback) {
     let body = JSON.parse(data.body)
 
     const payload = {
-      query : `
+      query: `
         mutation customerCreate($input: CustomerCreateInput!) {
           customerCreate(input: $input) {
             userErrors {
@@ -42,24 +42,23 @@ exports.handler = async function(event, context, callback) {
             }
           }
         }`,
-      variables : {
-          input: {
-            email: body.email,
-            password: body.password,
-            acceptsMarketing: body.newsletter,
-            firstName: body.firstName,
-            lastName: body.lastName,
-          },
-        }
-      }
+      variables: {
+        input: {
+          email: body.email,
+          password: body.password,
+          acceptsMarketing: body.newsletter,
+          firstName: body.firstName,
+          lastName: body.lastName,
+        },
+      },
+    }
 
-  
     axios({
-          url: 'https://cherries2018.myshopify.com/api/graphql',
-          method: 'POST',
-          headers: shopifyConfig,
-          data: JSON.stringify(payload),
-        })
+      url: 'https://cherries2018.myshopify.com/api/graphql',
+      method: 'POST',
+      headers: shopifyConfig,
+      data: JSON.stringify(payload),
+    })
       .then(async function(response) {
         let customer
         if (response.data.errors) {
@@ -67,7 +66,7 @@ exports.handler = async function(event, context, callback) {
         } else {
           customer = response.data.data.customerCreate
         }
-       
+
         // After signing user up, immediately log then im using getAccount lambda function
         let loginInfo = {
           email: body.email,

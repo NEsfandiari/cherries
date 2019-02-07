@@ -5,19 +5,12 @@ import { SideNav, AccountContainer } from '../components'
 import { MainLayout } from '../components/layouts'
 
 const Container = styled.div`
-  height: 70vh;
+  height: 95vh;
   background-color: #fbe5e9;
   position: relative;
   text-align: center;
   display: flex;
-  /* display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 4rem;
-  color: #47525e;
-  font-family: Lato;
-  */
+
   a {
     text-decoration: none;
   }
