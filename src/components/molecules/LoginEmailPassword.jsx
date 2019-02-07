@@ -12,9 +12,8 @@ const Container = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 0;
+  margin-bottom: 1rem;
   .radio {
-    margin-top: 0.6rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -68,7 +67,7 @@ class LoginEmailPassword extends Component {
           name="email"
           onChange={this.handleChange}
           value={this.state.email}
-          width="24rem"
+          width="22rem"
         />
         <StyledInput
           aria-label="Password"
@@ -77,7 +76,7 @@ class LoginEmailPassword extends Component {
           name="password"
           onChange={this.handleChange}
           value={this.state.password}
-          width="24.3rem"
+          width="22rem"
           fontFamily="Lato"
           marginBottom="2em"
         />
@@ -98,7 +97,7 @@ class LoginEmailPassword extends Component {
           borderColor="#E20031"
           fontWeight="700"
           fontSize="16px"
-          width="25rem"
+          width="22rem"
           height="2.2rem"
           margin="1.7rem 0 0 0"
         >

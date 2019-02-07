@@ -14,12 +14,15 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 4rem;
+  padding: 3rem;
   color: #47525e;
   background-color: #fbe5e9;
   font-family: Lato;
   a {
     text-decoration: none;
+  }
+  p {
+    margin: 0.5rem;
   }
   animation: fadein 1s;
   @keyframes fadein {
@@ -66,7 +69,7 @@ class Signup extends Component {
     }
     return (
       <MainLayout>
-        <SideNav  />
+        <SideNav />
         <Container>
           <h2>Create Account</h2>
           <p className="errorMessage animated fadeInRight" style={displayError}>
